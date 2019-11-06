@@ -119,7 +119,7 @@ export default function LoginForm(props) {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onChange={props.handleLoginFormSubmit}
+              onClick={props.handleLoginFormSubmit}
             >
               Sign In
             </Button>
