@@ -1,26 +1,103 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import axios from "axios";
 import './App.css';
+import DashBoard from './components/Dashboard';
+import Store from './components/Store';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
-function App() {
+
+//------JOE ADDS-------
+import LoginForm from './components/LoginForm';
+import SignUpForm from './components/SignUpForm';
+//-----------------------------------
+
+
+export default class App extends Component {
+//JOE ADDS START-------------------------------
+  state = {
+    name:"",
+    password:"",
+    loggedInUser:"",
+    url:"http://localhost:3003",
+    // url:"https://manateepi.herokuapp.com",
+  }
+
+  handleChange= event=>{
+    const {name,value}=event.target;
+    this.setState({
+      [name]:value
+    })
+  };
+
+  componentDidMount(){
+    this.readSessions();
+  }
+  readSessions = ()=>{
+    axios.get(`${this.state.url}/auth/readsessions`,{withCredentials:true}).then(res=>{
+      console.log("Cookie", res.data)
+      this.setState({loggedInUser:res.data.user})
+    })
+  }
+
+  handleLoginFormSubmit = event=>{
+    if(event){
+
+      event.preventDefault();
+    }
+    axios.post(`${this.state.url}/auth/login`,{name:this.state.name,password:this.state.password},{withCredentials:true}).then(res=>{
+      console.log(res.data,res.status)
+      this.setState({
+        name:"",
+        password:"",
+        loggedInUser:res.data.user
+      });
+
+    }).catch(err=>{
+      console.log(err.response);
+      this.setState({
+        name:"",
+        password:"",
+        loggedInUser:""
+      })
+    })
+  }
+
+  handleSignupFormSubmit = event=>{
+    event.preventDefault();
+    axios.post(`${this.state.url}/auth/signup`,{name:this.state.name,password:this.state.password},{withCredentials:true}).then(res=>{
+      console.log(res.data,res.status)
+      this.handleLoginFormSubmit();
+    }).catch(err=>{
+      console.log(err.response);
+    })
+  }
+  //JOE ADDS END---------------------------
+
+
+  render(){
   return (
+    <Router>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+       <Route exact path="/" render={()=> <LoginForm name={this.state.name} password={this.state.password}handleChange={this.handleChange} handleLoginFormSubmit={this.handleLoginFormSubmit}/>}/>
+       <Route exact path="/signup" render={()=><SignUpForm name={this.state.name} password={this.state.password}handleChange={this.handleChange} handleSignupFormSubmit={this.handleSignupFormSubmit}/>}/>
+       <Route exact path="/dash" render={ ()=> 
+
+       this.state.loggedInUser?(
+          
+      <Store>
+      <DashBoard user={this.state.loggedInUser.name} />
+      </Store>
+        
+          ):console.log("not logged in my guy")}/>
+  
     </div>
+    </Router>
   );
 }
-
-export default App;
+}
