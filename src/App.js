@@ -94,7 +94,7 @@ export default class App extends Component {
       <DashBoard user={this.state.loggedInUser.name} />
       </Store>
         
-          ):console.log("not logged in my guy")}/>
+          ):<Route exact path="/" render={()=> <LoginForm name={this.state.name} password={this.state.password}handleChange={this.handleChange} handleLoginFormSubmit={this.handleLoginFormSubmit}/>}/>}/>
   
     </div>
     </Router>
