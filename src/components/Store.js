@@ -92,7 +92,7 @@ export default function Store(props) {
     })
         socket.on('chatroom enter', function(chatroom){
             console.log("chatroom enter", chatroom)
-            axios.get(`/chat/allchannels/${chatroom}`)
+            axios.get(`https://frozen-scrubland-02613.herokuapp.com/chat/allchannels/${chatroom}`)
             .then(function(results){
                 console.log(results)
                 dispatch({ type: 'FETCH_MESSAGES', payload: { [chatroom] : results.data } })

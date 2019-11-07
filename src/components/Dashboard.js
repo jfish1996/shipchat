@@ -101,7 +101,7 @@ export default function Dashboard(props) {
     changeActiveTopic(topic)
   }
   const findAllUsers = () =>{
-    axios.get("/chat/users").then(function(data){
+    axios.get("https://frozen-scrubland-02613.herokuapp.com/chat/users").then(function(data){
       changeallUsers(data.data)
       console.log(allUsers)
     })
