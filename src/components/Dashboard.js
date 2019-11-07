@@ -6,6 +6,10 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 //
 
+//for card items//
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+
 //for list items--
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -26,6 +30,7 @@ import TextField from '@material-ui/core/TextField';
 
 import {CTX} from './Store';
 import App from '../App';
+import axios from 'axios';
 
 
 
@@ -58,7 +63,10 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     width: "15%"
-  }
+  },
+  card: {
+    minWidth: 200,
+  },
 }));
 
 export default function Dashboard(props) {
@@ -78,8 +86,8 @@ export default function Dashboard(props) {
   const [activeTopic, changeActiveTopic] = React.useState(topics[0])
 //setting the state value of textValue
   const [textValue, changeTextValue] = React.useState('')
-//setting the state value of messages
-  const [messages, setMessage]= useState([])
+//setting the state value of an all users array
+  const [allUsers, changeallUsers] = useState([]);
 
   //essentially componenet did mount, any time the page load, and or the active topic changes, this will run
   useEffect(() =>{
@@ -92,9 +100,19 @@ export default function Dashboard(props) {
 
     changeActiveTopic(topic)
   }
+  const findAllUsers = () =>{
+    axios.get("/chat/users").then(function(data){
+      changeallUsers(data.data)
+      console.log(allUsers)
+    })
+  }
+  useEffect(() =>{
+    findAllUsers();
+  },[]);
   return (
    
     <div>
+      {(activeTopic == "Users")? console.log("yay"): console.log("nope")}
         {/* Component to break 1 */}
       <Paper className={classes.root}>
       <Typography>Welcome {props.user}</Typography>
@@ -130,6 +148,20 @@ export default function Dashboard(props) {
 
             {
               //grab our all chats object with the value of our active topic 
+              (activeTopic == "Users")? 
+              
+              allUsers.map((user,i) => (
+               
+               <div onClick={console.log("clicked")} key={i}>
+                 <br></br>
+                <Card className={classes.card} >
+                <CardContent>
+                {user.name}
+                </CardContent>
+                </Card>
+                </div>
+              ))
+              : 
                 allChats[activeTopic].map((chat, i) => (
                   //map over each chat
                <div className={classes.flex} key={i}>

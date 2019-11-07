@@ -23,8 +23,8 @@ export default class App extends Component {
     name:"",
     password:"",
     loggedInUser:"",
-    url:"http://localhost:3003",
-    // url:"https://manateepi.herokuapp.com",
+    // url:"http://localhost:3002",
+    url:"https://frozen-scrubland-02613.herokuapp.com/"
   }
 
   handleChange= event=>{

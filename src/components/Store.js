@@ -82,7 +82,10 @@ export default function Store(props) {
     const [allChats, dispatch] = React.useReducer(reducer, initState)
 
     if(!socket) {
-        socket = io(':3002')
+        socket = io(
+            // 'http://localhost:3002'
+            "https://frozen-scrubland-02613.herokuapp.com/"
+            )
         socket.on('chat message', function(msg){
             console.log("Message test ", msg)
            dispatch({ type: 'RECEIVE_MESSAGE', payload: msg });
