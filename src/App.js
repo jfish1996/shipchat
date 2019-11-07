@@ -24,7 +24,7 @@ export default class App extends Component {
     password:"",
     loggedInUser:"",
     // url:"http://localhost:3002",
-    url:"https://frozen-scrubland-02613.herokuapp.com/"
+    url:"https://frozen-scrubland-02613.herokuapp.com"
   }
 
   handleChange= event=>{
