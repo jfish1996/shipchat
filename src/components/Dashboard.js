@@ -28,9 +28,20 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 //
 
+
 import {CTX} from './Store';
-import App from '../App';
+// import App from '../App';
 import axios from 'axios';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
+
+
 
 
 
@@ -75,7 +86,7 @@ export default function Dashboard(props) {
   const classes = useStyles();
 
   //importing all of the context to use within Dashbaord from store
-  const {allChats, sendChatAction, enterChatRoomAction, user} = React.useContext(CTX);
+  const {allChats, sendChatAction, enterChatRoomAction, user, addDirectMessageChat} = React.useContext(CTX);
 
   console.log({allChats});
 
@@ -92,6 +103,7 @@ export default function Dashboard(props) {
   //essentially componenet did mount, any time the page load, and or the active topic changes, this will run
   useEffect(() =>{
     //grabbing all of the data via our enterChatRoomAction
+
     enterChatRoomAction(activeTopic)
   },[activeTopic])
 
@@ -101,25 +113,54 @@ export default function Dashboard(props) {
     changeActiveTopic(topic)
   }
   const findAllUsers = () =>{
-    axios.get("https://frozen-scrubland-02613.herokuapp.com/chat/users").then(function(data){
+    axios.get(
+      // "https://frozen-scrubland-02613.herokuapp.com/chat/users"
+      "http://localhost:3002/chat/users/"
+      ).then(function(data){
       changeallUsers(data.data)
       console.log(allUsers)
     })
   }
+
+  const logOut = () =>{
+    axios.get(
+      // "https://frozen-scrubland-02613.herokuapp.com/auth/logout"
+      "http://localhost:3002/auth/logout"
+      ).then(function(data){
+      console.log(data)
+    })
+
+  }
+
   useEffect(() =>{
+
+
     findAllUsers();
+
   },[]);
+
+  const createDirectMessage = (userId, friendId, userName, friendName) => {
+      axios.post('http://localhost:3002/chat/PersonalChannels', { userId, friendId, userName , friendName })
+      .then(function(personalChannel) {
+        // console.log(personalChannel)
+        addDirectMessageChat(personalChannel.data)
+      })
+  }
+
+
   return (
    
     <div>
-      {(activeTopic == "Users")? console.log("yay"): console.log("nope")}
+      
+
         {/* Component to break 1 */}
-      <Paper className={classes.root}>
-      <Typography>Welcome {props.user}</Typography>
+        {props.user &&<Redirect to="/"/>}
+    <Paper className={classes.root}>
+      <Typography>Welcome {props.userName} </Typography>
         <Typography variant="h4" component="h4">
           Sea Cruiser
         </Typography>
-        
+      
         <Typography variant="h5" component="h5">
           {activeTopic}
         </Typography>
@@ -138,7 +179,13 @@ export default function Dashboard(props) {
               ))}
             </List>
             <List>
-              <div>Direct Messages</div>
+              {/* {allChats.DirectMessages.map(personalTopic => {
+                var otherUser = props.userId === personalTopic.id1 ? personalTopic.name2 : personalTopic.name1
+                
+                return <ListItem>
+                 <ListItemText> {otherUser}</ListItemText>
+                  </ListItem> */}
+              {/* })} */}
             </List>
             {/* End of List Items */}
           </div>
@@ -148,11 +195,11 @@ export default function Dashboard(props) {
 
             {
               //grab our all chats object with the value of our active topic 
-              (activeTopic == "Users")? 
+              (activeTopic === "Users")? 
               
               allUsers.map((user,i) => (
                
-               <div onClick={console.log("clicked")} key={i}>
+               <div onClick={() => createDirectMessage(props.userId, user.id, props.userName, user.name)} key={i}>
                  <br></br>
                 <Card className={classes.card} >
                 <CardContent>

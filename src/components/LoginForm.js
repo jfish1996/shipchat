@@ -20,7 +20,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -28,7 +28,16 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
+
 function Copyright() {
+
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
@@ -68,6 +77,9 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  textColor: {
+    color: "white"
+  }
 }));
 
 export default function LoginForm(props) {
@@ -113,16 +125,23 @@ export default function LoginForm(props) {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
+             
+              
+            <Button 
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
               onClick={props.handleLoginFormSubmit}
-            >
-              Sign In
+              
+              >
+                <Link to="/dash"> <div className={classes.textColor}>  Sign In </div> </Link>
+             
             </Button>
+          
+          
+           
           </form>
         </div>
       </Grid>
