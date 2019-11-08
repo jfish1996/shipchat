@@ -88,13 +88,14 @@ export default class App extends Component {
        <Route exact path="/signup" render={()=><SignUpForm name={this.state.name} password={this.state.password}handleChange={this.handleChange} handleSignupFormSubmit={this.handleSignupFormSubmit}/>}/>
        <Route exact path="/dash" render={ ()=> 
 
-       this.state.loggedInUser?(
+      //  this.state.loggedInUser?(
           
       <Store>
       <DashBoard user={this.state.loggedInUser.name} />
       </Store>
         
-          ):console.log("not logged in my guy")}/>
+     
+       }/>
   
     </div>
     </Router>
