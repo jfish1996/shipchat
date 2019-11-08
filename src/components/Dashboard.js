@@ -6,6 +6,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 //
 
+
 //for card items//
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -32,7 +33,8 @@ import {CTX} from './Store';
 import App from '../App';
 import axios from 'axios';
 
-
+import { whileStatement } from "@babel/types";
+import { fontWeight, fontSize } from "@material-ui/system";
 
 
 
@@ -40,7 +42,8 @@ import axios from 'axios';
 const useStyles = makeStyles(theme => ({
   root: {
     margin: "50px",
-    padding: theme.spacing(3, 2)
+    padding: theme.spacing(3, 2),
+    backgroundColor: "#00000060",
   },
   flex: {
     display: "flex",
@@ -48,8 +51,8 @@ const useStyles = makeStyles(theme => ({
   },
   topicsWindow: {
     width: "30%",
-    height: "300px",
-    borderRight: "1px solid grey",
+    height: "350px",
+    borderRight: "3px solid white",
     overflow:"auto"
   },
   chatWindow: {
@@ -59,18 +62,34 @@ const useStyles = makeStyles(theme => ({
     overflow: "auto"
   },
   chatBox: {
-    width: "85%"
+    width: "60%",
+    backgroundColor: "rgba(0,0,0,0.3)",
+    border: "none",
+    borderRadius: "15px",
+    autoComplete: "true",
   },
   button: {
-    width: "15%"
+    width: "5%"
   },
   card: {
     minWidth: 200,
   },
+  colorPrimary: {
+    color: "white",
+    fontFamily: "Poiret One",
+    fontWeight: "bold",
+   
+  },
+  flexMessage: {
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+
 }));
 
 export default function Dashboard(props) {
-
+  
   //front end
   const classes = useStyles();
 
@@ -115,8 +134,8 @@ export default function Dashboard(props) {
       {(activeTopic == "Users")? console.log("yay"): console.log("nope")}
         {/* Component to break 1 */}
       <Paper className={classes.root}>
-      <Typography>Welcome {props.user}</Typography>
-        <Typography variant="h4" component="h4">
+      <Typography className={classes.colorPrimary}>Welcome {props.user}</Typography>
+        <Typography variant="h4" component="h4" className={classes.colorPrimary}>
           Sea Cruiser
         </Typography>
         
@@ -176,21 +195,22 @@ export default function Dashboard(props) {
           </div>
         </div>
         {/* Componenet to break 4 */}
-        <div className={classes.flex}>
-        <div>
+        <div className={classes.flexMessage}>
+        
         <TextField
-          id="outlined-basic"
+          // id="outlined-basic"
           className={classes.chatBox}
+          // autoFocus="false"
           label="Send a message!"
           margin="normal"
-          variant="outlined"
+          disableUnderline="true"
+          // variant="outlined"
           value={textValue}
           onChange={ event => changeTextValue(event.target.value)}
         />
-      </div>
+       
 
         <Button 
-
         variant="contained" 
         color="primary" 
         className={classes.button}
@@ -203,6 +223,7 @@ export default function Dashboard(props) {
         >
                 Send
         </Button>
+
             </div>
 
       </Paper>
