@@ -100,7 +100,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   image: {
-    backgroundImage: 'url(https://media.giphy.com/media/yTrcALesdjU5O/giphy.gif)',
+    backgroundImage: 'url(https://unsplash.com/photos/sTOYhbK0r_0)',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
