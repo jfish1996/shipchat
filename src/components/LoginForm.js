@@ -22,19 +22,29 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 // import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
+// import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
 import Grid from '@material-ui/core/Grid';
-// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
+import pink from '@material-ui/core/colors/pink';
+import teal from '@material-ui/core/colors/teal';
+import cyan from  '@material-ui/core/colors/cyan';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
-  Redirect
+  Redirect,
+  useHistory
 } from "react-router-dom";
+
+const primary = pink[500]; // #F44336
+const secondary = teal[700]; // #E040FB
+const accent = cyan[200]; // #E040FB (alternative method)
+
 
 function Copyright() {
 
@@ -42,7 +52,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        SeaCruiser
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -50,12 +60,47 @@ function Copyright() {
   );
 }
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      // light: will be calculated from palette.primary.main,
+      main: '#d81b60',
+      // dark: will be calculated from palette.primary.main,
+      // contrastText: will be calculated to contrast with palette.primary.main
+    },
+    secondary: {
+      light: '#b2dfdb',
+      main: '#00695c',
+      // dark: will be calculated from palette.secondary.main,
+      contrastText: '#f50057',
+    },
+    // error: will use the default color
+  },
+});
+
+
+
+const StyledButton = withStyles({
+  root: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    borderRadius: 3,
+    border: 0,
+    height: 48,
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+  },
+  label: {
+    textTransform: 'capitalize',
+  },
+})(Button);
+
 const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
   },
+
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/user/erondu)',
+    backgroundImage: 'url(https://media.giphy.com/media/yTrcALesdjU5O/giphy.gif)',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -66,6 +111,10 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
+
+  main:{
+  },
+
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
@@ -77,13 +126,15 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  textColor: {
-    color: "white"
+
+  container:{
+    background: "pink"
   }
 }));
 
 export default function LoginForm(props) {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -92,7 +143,7 @@ export default function LoginForm(props) {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            {/* <LockOutlinedIcon /> */}
+            {/* <DirectionsBoatIcon /> */}
           </Avatar>
           <Typography component="h1" variant="h5">
             Login
@@ -116,7 +167,7 @@ export default function LoginForm(props) {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="password"
               type="password"
               value={props.password}
               onChange={props.handleChange}
@@ -125,23 +176,35 @@ export default function LoginForm(props) {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-             
-              
-            <Button 
+            <StyledButton
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={props.handleLoginFormSubmit}
+              onClick={(event) => {
+                props.handleLoginFormSubmit(event);
+                history.push("/dash")
+               }}
+            >
+              Sign In
               
-              >
-                <Link to="/dash"> <div className={classes.textColor}>  Sign In </div> </Link>
-             
-            </Button>
-          
-          
-           
+            </StyledButton>
+
+            <StyledButton
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={() => {
+      
+                history.push("/signup")
+               }}
+            >
+              Sign Up
+              
+            </StyledButton>
           </form>
         </div>
       </Grid>

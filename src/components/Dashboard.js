@@ -6,6 +6,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 //
 
+
 //for card items//
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -38,12 +39,12 @@ import {
   Switch,
   Route,
   Link,
-  Redirect
+  Redirect,
+  useHistory
 } from "react-router-dom";
 
-
-
-
+import { whileStatement } from "@babel/types";
+import { fontWeight, fontSize } from "@material-ui/system";
 
 
 
@@ -51,7 +52,8 @@ import {
 const useStyles = makeStyles(theme => ({
   root: {
     margin: "50px",
-    padding: theme.spacing(3, 2)
+    padding: theme.spacing(3, 2),
+    backgroundColor: "#00000060",
   },
   flex: {
     display: "flex",
@@ -59,8 +61,8 @@ const useStyles = makeStyles(theme => ({
   },
   topicsWindow: {
     width: "30%",
-    height: "300px",
-    borderRight: "1px solid grey",
+    height: "350px",
+    borderRight: "3px solid white",
     overflow:"auto"
   },
   chatWindow: {
@@ -70,18 +72,34 @@ const useStyles = makeStyles(theme => ({
     overflow: "auto"
   },
   chatBox: {
-    width: "85%"
+    width: "60%",
+    backgroundColor: "rgba(0,0,0,0.3)",
+    border: "none",
+    borderRadius: "15px",
+    autoComplete: "true",
   },
   button: {
-    width: "15%"
+    width: "5%"
   },
   card: {
     minWidth: 200,
   },
+  colorPrimary: {
+    color: "white",
+    fontFamily: "Poiret One",
+    fontWeight: "bold",
+   
+  },
+  flexMessage: {
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+
 }));
 
 export default function Dashboard(props) {
-
+  
   //front end
   const classes = useStyles();
 
@@ -100,11 +118,15 @@ export default function Dashboard(props) {
 //setting the state value of an all users array
   const [allUsers, changeallUsers] = useState([]);
 
+
+  const history = useHistory();
+
   //essentially componenet did mount, any time the page load, and or the active topic changes, this will run
   useEffect(() =>{
     //grabbing all of the data via our enterChatRoomAction
 
     enterChatRoomAction(activeTopic)
+    
   },[activeTopic])
 
   //this function is what handles the on click of a topic(and or channel)
@@ -114,38 +136,47 @@ export default function Dashboard(props) {
   }
   const findAllUsers = () =>{
     axios.get(
-      // "https://frozen-scrubland-02613.herokuapp.com/chat/users"
-      "http://localhost:3002/chat/users/"
+      "https://frozen-scrubland-02613.herokuapp.com/chat/users"
+      // "http://localhost:3002/chat/users/"
       ).then(function(data){
       changeallUsers(data.data)
       console.log(allUsers)
+    
     })
   }
 
   const logOut = () =>{
     axios.get(
-      // "https://frozen-scrubland-02613.herokuapp.com/auth/logout"
-      "http://localhost:3002/auth/logout"
+      "https://frozen-scrubland-02613.herokuapp.com/auth/logout"
+      // "http://localhost:3002/auth/logout"
       ).then(function(data){
       console.log(data)
+      history.push("/")
     })
 
   }
 
   useEffect(() =>{
 
-
     findAllUsers();
 
   },[]);
 
-  const createDirectMessage = (userId, friendId, userName, friendName) => {
-      axios.post('http://localhost:3002/chat/PersonalChannels', { userId, friendId, userName , friendName })
-      .then(function(personalChannel) {
-        // console.log(personalChannel)
-        addDirectMessageChat(personalChannel.data)
-      })
-  }
+  // const refreshOnce = () => {
+  //   window.location.reload(false); 
+  // }
+
+
+
+ 
+
+  // const createDirectMessage = (userId, friendId, userName, friendName) => {
+  //     axios.post('http://localhost:3002/chat/PersonalChannels', { userId, friendId, userName , friendName })
+  //     .then(function(personalChannel) {
+  //       // console.log(personalChannel)
+  //       addDirectMessageChat(personalChannel.data)
+  //     })
+  // }
 
 
   return (
@@ -154,10 +185,13 @@ export default function Dashboard(props) {
       
 
         {/* Component to break 1 */}
-        {props.user &&<Redirect to="/"/>}
-    <Paper className={classes.root}>
-      <Typography>Welcome {props.userName} </Typography>
-        <Typography variant="h4" component="h4">
+      <Paper className={classes.root}>
+      <Button onClick={() => {
+        logOut()
+      }}>Logout
+      </Button>
+      <Typography className={classes.colorPrimary}>Welcome {props.user}</Typography>
+        <Typography variant="h4" component="h4" className={classes.colorPrimary}>
           Sea Cruiser
         </Typography>
       
@@ -223,21 +257,22 @@ export default function Dashboard(props) {
           </div>
         </div>
         {/* Componenet to break 4 */}
-        <div className={classes.flex}>
-        <div>
+        <div className={classes.flexMessage}>
+        
         <TextField
-          id="outlined-basic"
+          // id="outlined-basic"
           className={classes.chatBox}
+          // autoFocus="false"
           label="Send a message!"
           margin="normal"
-          variant="outlined"
+          // disableUnderline="true"
+          // variant="outlined"
           value={textValue}
           onChange={ event => changeTextValue(event.target.value)}
         />
-      </div>
+       
 
         <Button 
-
         variant="contained" 
         color="primary" 
         className={classes.button}
@@ -250,6 +285,7 @@ export default function Dashboard(props) {
         >
                 Send
         </Button>
+
             </div>
 
       </Paper>

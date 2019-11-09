@@ -25,8 +25,8 @@ export default class App extends Component {
     name:"",
     password:"",
     loggedInUser:"",
-    url:"http://localhost:3002"
-    // url:"https://frozen-scrubland-02613.herokuapp.com"
+    // url:"http://localhost:3002"
+    url:"https://frozen-scrubland-02613.herokuapp.com"
   }
 
   handleChange= event=>{
@@ -48,12 +48,14 @@ export default class App extends Component {
 
   logOut = () =>{
     axios.get(
-      // "https://frozen-scrubland-02613.herokuapp.com/auth/logout"
-      "http://localhost:3002/auth/logout",{withCredentials:true}
-      ).then(function(data){
+      "https://frozen-scrubland-02613.herokuapp.com/auth/logout"
+      // "http://localhost:3002/auth/logout"
+      ,{withCredentials:true}
+      ).then((data) => {
         
       console.log(data)
-      window.location.href="/"
+      this.setState({loggedInUser:false})
+      // window.location.href="/"
     })
 
   }
@@ -78,6 +80,7 @@ export default class App extends Component {
         password:"",
         loggedInUser:""
       })
+       window.location.reload(true); 
     })
   }
 
@@ -100,22 +103,17 @@ export default class App extends Component {
       
        <Route exact path="/" render={()=> <LoginForm name={this.state.name} password={this.state.password}handleChange={this.handleChange} handleLoginFormSubmit={this.handleLoginFormSubmit}/>}/>
        <Route exact path="/signup" render={()=><SignUpForm name={this.state.name} password={this.state.password}handleChange={this.handleChange} handleSignupFormSubmit={this.handleSignupFormSubmit}/>}/>
-       <Route exact path="/dash" render={ ()=> 
-      <div>
+       <Route exact path="/dash" render= { ()=> { 
+       return(   
       <Store user={this.state.loggedInUser.name}>
-        
-        <button onClick={this.logOut}>
-            LogOut 
-          </button>
-      <DashBoard userId={this.state.loggedInUser.id} userName={this.state.loggedInUser.name}  />
-      </Store >
+      <DashBoard user={this.state.loggedInUser.name} logout={this.logOut}/>
+      </Store>)
+       }}/> 
+       
 
-      </div>
-       }/>
- 
-  
-    </div>
+       </div>
     </Router>
-  );
-}
+    
+  )
+  }
 }
