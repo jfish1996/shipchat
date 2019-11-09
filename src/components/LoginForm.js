@@ -22,9 +22,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 // import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
-// import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
+import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import { palette } from '@material-ui/system';
 import { withStyles } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -40,6 +41,7 @@ import {
   Redirect,
   useHistory
 } from "react-router-dom";
+
 
 const primary = pink[500]; // #F44336
 const secondary = teal[700]; // #E040FB
@@ -64,12 +66,12 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       // light: will be calculated from palette.primary.main,
-      main: '#d81b60',
+      main: '#FE6B8B',
       // dark: will be calculated from palette.primary.main,
       // contrastText: will be calculated to contrast with palette.primary.main
     },
     secondary: {
-      light: '#b2dfdb',
+      light: '#FE6B8B',
       main: '#00695c',
       // dark: will be calculated from palette.secondary.main,
       contrastText: '#f50057',
@@ -99,36 +101,55 @@ const useStyles = makeStyles(theme => ({
     height: '100vh',
   },
 
+  palette:{
+  primary:'#FE6B8B',
+  secondary: '#FE6B8B',
+  accent:'#FE6B8B',
+  },
+
+
+
   image: {
     backgroundImage: 'url(https://i.ibb.co/yszc3zC/waveslogin.jpg)',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    
   },
   paper: {
-    margin: theme.spacing(8, 4),
+    // margin: theme.spacing(8, 4),
+    height: '100vh',
+    paddingTop: '15vh',
+    backgroundColor: '#fffde0',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    
+
   },
 
-  main:{
-  },
 
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
+
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '80%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
+
+    color: theme.palette.secondary.main,
   },
+
+
   submit: {
     margin: theme.spacing(3, 0, 2),
+    background: ''
   },
 
   container:{
-    background: "pink"
+    backgroundColor: theme.palette.secondary.main,
+
   }
 }));
 
@@ -143,7 +164,7 @@ export default function LoginForm(props) {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            {/* <DirectionsBoatIcon /> */}
+            <DirectionsBoatIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Login

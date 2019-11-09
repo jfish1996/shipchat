@@ -23,7 +23,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-// import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
+import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -42,13 +42,16 @@ function Copyright() {
     <Typography variant="body2" color="white" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        JGJ 2019
+        JGJ
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
   );
 }
+
+
+
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -58,42 +61,45 @@ const useStyles = makeStyles(theme => ({
 },
   },
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: '25vh',
+    padding: 'inherit',
+    color: '#000000',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%, )',
+    backgroundColor: 'rgba(255,255,255,.4)',
+    borderRadius: '4em',
 
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%, )',
+    backgroundColor: '#FF8E53',
   },
   form: { 
     width: '100%', // Fix IE 11 issue. target for form imput stylization
     marginTop: theme.spacing(10),
-    backgroundColor: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%, )',
+    color: 'pink',
+    // backgroundColor: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%, )',
 
   },
   submit: {
-    margin: theme.spacing(5, 0, 2),
-    color: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%, )',
-
+    margin: theme.spacing(5, 0, 10),
+    color: "#FFFFFF",
   },
 
   
-
 }));
 
 
 const StyledForm = withStyles({
     root: {
-      background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
       borderRadius: 3,
       border: 0,
+      paddingBottom: '2vh',
       color: 'white',
       height: 48,
       padding: '0 30px',
+      background:'#FFFFFF',
       boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     },
     label: {
@@ -126,7 +132,7 @@ export default function SignUp(props) {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          {/* <DirectionsBoatIcon /> */}
+          <DirectionsBoatIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
