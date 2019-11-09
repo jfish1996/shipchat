@@ -233,7 +233,8 @@ export default function Dashboard(props) {
               
               allUsers.map((user,i) => (
                
-               <div onClick={() => createDirectMessage(props.userId, user.id, props.userName, user.name)} key={i}>
+               <div>
+                 {/* onClick={() => createDirectMessage(props.userId, user.id, props.userName, user.name)} key={i} */}
                  <br></br>
                 <Card className={classes.card} >
                 <CardContent>
