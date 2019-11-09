@@ -100,7 +100,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   image: {
-    backgroundImage: 'url(https://unsplash.com/photos/sTOYhbK0r_0)',
+    backgroundImage: 'url(https://i.ibb.co/yszc3zC/waveslogin.jpg)',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
