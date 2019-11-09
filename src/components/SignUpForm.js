@@ -23,11 +23,18 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
+// import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Redirect,
+    useHistory
+  } from "react-router-dom";
 
 
 function Copyright() {
@@ -112,13 +119,14 @@ const StyledButton = withStyles({
 
 export default function SignUp(props) {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <DirectionsBoatIcon />
+          {/* <DirectionsBoatIcon /> */}
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
@@ -132,8 +140,7 @@ export default function SignUp(props) {
                 fullWidth
                 id="email"
                 label="name"
-                name="email"
-                autoComplete="email"
+                name="name"
                 value={props.name}
                 onChange={props.handleChange}
 
@@ -151,7 +158,6 @@ export default function SignUp(props) {
                 autoComplete="current-password"
                 value={props.password}
                 onChange={props.handleChange}
-                onClick={props.handleSignupFormSubmit}
 
               />
             </Grid>
@@ -162,16 +168,19 @@ export default function SignUp(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-          >
+            onClick={(event) => {
+                props.handleSignupFormSubmit(event);
+                history.push("/")
+            }}>
             Sign Up
           </StyledButton>
-          <Grid container justify="flex-end">
+          {/* <Grid container justify="flex-end">
             <Grid item>
               <Link href="#" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
-          </Grid>
+          </Grid> */}
         </form>
       </div>
       <Box mt={5}>

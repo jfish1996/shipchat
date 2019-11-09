@@ -7,13 +7,15 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 
 
 //------JOE ADDS-------
 import LoginForm from './components/LoginForm';
 import SignUpForm from './components/SignUpForm';
+import { width } from '@material-ui/system';
 //-----------------------------------
 
 
@@ -23,8 +25,8 @@ export default class App extends Component {
     name:"",
     password:"",
     loggedInUser:"",
-    // url:"http://localhost:3002",
-    url:"https://frozen-scrubland-02613.herokuapp.com/"
+    // url:"http://localhost:3002"
+    url:"https://frozen-scrubland-02613.herokuapp.com"
   }
 
   handleChange= event=>{
@@ -42,6 +44,20 @@ export default class App extends Component {
       console.log("Cookie", res.data)
       this.setState({loggedInUser:res.data.user})
     })
+  }
+
+  logOut = () =>{
+    axios.get(
+      "https://frozen-scrubland-02613.herokuapp.com/auth/logout"
+      // "http://localhost:3002/auth/logout"
+      ,{withCredentials:true}
+      ).then((data) => {
+        
+      console.log(data)
+      this.setState({loggedInUser:false})
+      // window.location.href="/"
+    })
+
   }
 
   handleLoginFormSubmit = event=>{
@@ -64,6 +80,7 @@ export default class App extends Component {
         password:"",
         loggedInUser:""
       })
+       window.location.reload(true); 
     })
   }
 
@@ -86,24 +103,17 @@ export default class App extends Component {
       
        <Route exact path="/" render={()=> <LoginForm name={this.state.name} password={this.state.password}handleChange={this.handleChange} handleLoginFormSubmit={this.handleLoginFormSubmit}/>}/>
        <Route exact path="/signup" render={()=><SignUpForm name={this.state.name} password={this.state.password}handleChange={this.handleChange} handleSignupFormSubmit={this.handleSignupFormSubmit}/>}/>
-       <Route exact path="/dash" render={ ()=> 
+       <Route exact path="/dash" render= { ()=> { 
+       return(   
+      <Store user={this.state.loggedInUser.name}>
+      <DashBoard user={this.state.loggedInUser.name} logout={this.logOut}/>
+      </Store>)
+       }}/> 
+       
 
-      //  this.state.loggedInUser?(
-          
-      <Store>
-      <DashBoard user={this.state.loggedInUser.name} />
-      </Store>
-
-       }/> 
-          {/* ):console.log("not logged in my guy")}/> */}
-
-        
-     
-       }/>
-
-  
-    </div>
+       </div>
     </Router>
-  );
-}
+    
+  )
+  }
 }

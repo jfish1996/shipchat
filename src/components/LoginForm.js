@@ -20,9 +20,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
-import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
+// import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
@@ -32,12 +32,22 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import pink from '@material-ui/core/colors/pink';
 import teal from '@material-ui/core/colors/teal';
 import cyan from  '@material-ui/core/colors/cyan';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+  useHistory
+} from "react-router-dom";
 
 const primary = pink[500]; // #F44336
 const secondary = teal[700]; // #E040FB
 const accent = cyan[200]; // #E040FB (alternative method)
 
+
 function Copyright() {
+
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
@@ -116,6 +126,7 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+
   container:{
     background: "pink"
   }
@@ -123,6 +134,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function LoginForm(props) {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -131,7 +143,7 @@ export default function LoginForm(props) {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <DirectionsBoatIcon />
+            {/* <DirectionsBoatIcon /> */}
           </Avatar>
           <Typography component="h1" variant="h5">
             Login
@@ -170,9 +182,28 @@ export default function LoginForm(props) {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={props.handleLoginFormSubmit}
+              onClick={(event) => {
+                props.handleLoginFormSubmit(event);
+                history.push("/dash")
+               }}
             >
               Sign In
+              
+            </StyledButton>
+
+            <StyledButton
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={() => {
+      
+                history.push("/signup")
+               }}
+            >
+              Sign Up
+              
             </StyledButton>
           </form>
         </div>

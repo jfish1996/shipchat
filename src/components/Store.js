@@ -17,23 +17,32 @@ const initState = {
 
     General: [
         //messages in those catagoires 
-        {from: 'General Bot', msg:'Welcome to our Cruise!'},
+        { from: 'General Bot', msg:'Welcome to our Cruise!' },
        
     ],
     NightLife: [
-        {from: 'Night Life Bot', msg:'Welcome to the Night Life Page!'},
+        { from: 'Night Life Bot', msg:'Welcome to the Night Life Page!' },
        
 
     ],
     Families: [
-        {from: 'Family Bot', msg:'Welcome Families!'}
+        { from: 'Family Bot', msg:'Welcome Families!' }
     ],
     Outings: [
-        {from: 'Outings Bot', msg:'Welcome to the Outings Page!'}
+        { from: 'Outings Bot', msg:'Welcome to the Outings Page!' }
+    ],
+    PoolSide: [
+        { from: 'Pool Side Bot', msg: 'Welcome to Pool Planning! Ask for reservations here!' }
+    ],
+    Singles: [
+        { from:'Singles Bot', msg: 'Welcome Singles!' }
     ]
 
+    // DirectMessages: []
 
 }
+
+
 
 //action is an object that we pass in
 //this state is whtever the current state is 
@@ -58,6 +67,14 @@ const reducer = (state, action) => {
                 ...state,
                 ...action.payload
             }
+        case 'CREATE_ROOM' :
+            // state.DirectMessages.push(action.payload)
+            console.log("action", action)
+            return{
+                ...state
+
+
+            }
         default:
             return state
     }
@@ -77,6 +94,12 @@ function enterChatRoomAction(value){
     socket.emit("chatroom enter", value)
 }
 
+function addDirectMessageChat(chatroom){
+    console.log("This is chatroom data", chatroom)
+    socket.emit("direct message room", chatroom)
+
+}
+
 export default function Store(props) {
 
     const [allChats, dispatch] = React.useReducer(reducer, initState)
@@ -92,27 +115,33 @@ export default function Store(props) {
     })
         socket.on('chatroom enter', function(chatroom){
             console.log("chatroom enter", chatroom)
-            axios.get(`https://frozen-scrubland-02613.herokuapp.com/chat/allchannels/${chatroom}`)
+            axios.get(
+                `https://frozen-scrubland-02613.herokuapp.com/chat/allchannels/${chatroom}`
+                // `http://localhost:3002/chat/allchannels/${chatroom}`
+            )
             .then(function(results){
                 console.log(results)
                 dispatch({ type: 'FETCH_MESSAGES', payload: { [chatroom] : results.data } })
             })
 
         })
+        socket.on('direct message room', function(chatroom){
+            // console.log("dispath properly", chatroom)
+            dispatch({ type: "CREATE_ROOM", payload: chatroom })
+        })
 }
 
 //temporary
 //---------------
 //define user here
-const user = 'John' + Math.random(100).toFixed(2);
-
+const user = props.user
 ///--------
 
 
 
     return (
         //values that are being passed to all childern nested with this component
-        <CTX.Provider value={{allChats, sendChatAction, enterChatRoomAction, user}}>
+        <CTX.Provider value={{allChats, sendChatAction, enterChatRoomAction, user, addDirectMessageChat}}>
             {props.children}
         </CTX.Provider>
     )
