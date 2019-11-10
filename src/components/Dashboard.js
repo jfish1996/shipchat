@@ -136,8 +136,8 @@ export default function Dashboard(props) {
   }
   const findAllUsers = () =>{
     axios.get(
-      // "https://frozen-scrubland-02613.herokuapp.com/chat/users"
-      "http://localhost:3002/chat/users/"
+      "https://frozen-scrubland-02613.herokuapp.com/chat/users"
+      // "http://localhost:3002/chat/users/"
       ).then(function(data){
       changeallUsers(data.data)
       console.log(allUsers)
@@ -147,8 +147,8 @@ export default function Dashboard(props) {
 
   const logOut = () =>{
     axios.get(
-      // "https://frozen-scrubland-02613.herokuapp.com/auth/logout"
-      "http://localhost:3002/auth/logout"
+      "https://frozen-scrubland-02613.herokuapp.com/auth/logout"
+      // "http://localhost:3002/auth/logout"
       ).then(function(data){
       console.log(data)
       history.push("/")
