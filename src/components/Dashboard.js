@@ -5,6 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 //
+import { createMuiTheme } from 'material-ui/styles';
+
 
 
 //for card items//
@@ -37,7 +39,6 @@ import { whileStatement } from "@babel/types";
 import { fontWeight, fontSize } from "@material-ui/system";
 
 
-
 //where we can assign css values
 const useStyles = makeStyles(theme => ({
   root: {
@@ -64,9 +65,10 @@ const useStyles = makeStyles(theme => ({
   chatBox: {
     width: "60%",
     backgroundColor: "rgba(0,0,0,0.3)",
-    border: "none",
+    borderBottom: "none",
     borderRadius: "15px",
     autoComplete: "true",
+      
   },
   button: {
     width: "5%"
@@ -84,7 +86,25 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "center",
+    
+   
   },
+  underline: {
+  '&:before': {
+    borderBottom:"none",
+  
+  },
+  '&:after': {
+    borderBottom:"none",
+  },
+  '&:hover:before': {
+    borderBottom: ["none", '!important'],
+    
+  },
+
+},
+
+
 
 }));
 
@@ -195,16 +215,19 @@ export default function Dashboard(props) {
           </div>
         </div>
         {/* Componenet to break 4 */}
-        <div className={classes.flexMessage}>
+        <div className={classes.flexMessage} >
         
         <TextField
           // id="outlined-basic"
-          className={classes.chatBox}
+          className={ classes.chatBox }
+          l="20px"
           // autoFocus="false"
-          label="Send a message!"
+          // label="Send a message!"
+          InputProps={{classes: {underline: classes.underline}}}
+          placeholder="Send a message!"
           margin="normal"
-          disableUnderline="true"
-          // variant="outlined"
+          variant="standard"
+          
           value={textValue}
           onChange={ event => changeTextValue(event.target.value)}
         />

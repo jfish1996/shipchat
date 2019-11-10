@@ -93,14 +93,8 @@ export default class App extends Component {
       <Store>
       <DashBoard user={this.state.loggedInUser.name} />
       </Store>
-
        }/> 
           {/* ):console.log("not logged in my guy")}/> */}
-
-        
-     
-       }/>
-
   
     </div>
     </Router>
