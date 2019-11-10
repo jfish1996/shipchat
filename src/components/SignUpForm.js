@@ -50,6 +50,18 @@ function Copyright() {
   );
 }
 
+const MyTypography = withStyles({
+  root: {
+    color: 'white', //#FF8E53
+    fontFamily:'sans-serif',
+  },
+  label: {
+    textTransform: 'capitalize',
+    fontFamily:'sans-serif',
+
+  },
+})(Typography);
+
 
 
 
@@ -135,9 +147,9 @@ export default function SignUp(props) {
         <DirectionsBoatIcon className={classes.avatar}>
           {/* <DirectionsBoatIcon /> */}
         </DirectionsBoatIcon>
-        <Typography component="h1" variant="h5">
+        <MyTypography component="h1" variant="h5">
           Sign up
-        </Typography>
+        </MyTypography>
         <form className={classes.form} noValidate>
          
             <Grid item xs={12}>

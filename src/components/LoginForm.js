@@ -62,23 +62,17 @@ function Copyright() {
   );
 }
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      // light: will be calculated from palette.primary.main,
-      main: '#FE6B8B',
-      // dark: will be calculated from palette.primary.main,
-      // contrastText: will be calculated to contrast with palette.primary.main
-    },
-    secondary: {
-      light: '#FE6B8B',
-      main: '#00695c',
-      // dark: will be calculated from palette.secondary.main,
-      contrastText: '#f50057',
-    },
-    // error: will use the default color
+const MyTypography = withStyles({
+  root: {
+    color: '#FF8E53', //#FF8E53
+    fontFamily:'sans-serif',
   },
-});
+  label: {
+    textTransform: 'capitalize',
+    fontFamily:'sans-serif',
+
+  },
+})(Typography);
 
 
 
@@ -131,7 +125,7 @@ const useStyles = makeStyles(theme => ({
 
   avatar: {
     margin: theme.spacing(1),
-    color: '#FE2D85',
+    color: '#FF7EB4',
   },
 
   form: {
@@ -166,9 +160,9 @@ export default function LoginForm(props) {
           <DirectionsBoatIcon className={classes.avatar}>
             {/* <DirectionsBoatIcon /> */}
           </DirectionsBoatIcon>
-          <Typography component="h1" variant="h5">
+          <MyTypography component="h1" variant="h5">
             Login
-          </Typography>
+          </MyTypography>
           <form className={classes.form} noValidate>
             <TextField
               variant="outlined"
