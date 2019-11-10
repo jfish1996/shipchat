@@ -22,7 +22,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 // import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
-import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
+// import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { palette } from '@material-ui/system';
@@ -164,7 +164,7 @@ export default function LoginForm(props) {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <DirectionsBoatIcon />
+            {/* <DirectionsBoatIcon /> */}
           </Avatar>
           <Typography component="h1" variant="h5">
             Login

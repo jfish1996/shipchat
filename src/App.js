@@ -48,8 +48,8 @@ export default class App extends Component {
 
   logOut = () =>{
     axios.get(
-      "https://frozen-scrubland-02613.herokuapp.com/auth/logout"
-      // "http://localhost:3002/auth/logout"
+      // "https://frozen-scrubland-02613.herokuapp.com/auth/logout"
+      "http://localhost:3002/auth/logout"
       ,{withCredentials:true}
       ).then((data) => {
         
