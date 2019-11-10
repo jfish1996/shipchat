@@ -23,7 +23,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-// import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
+import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -73,7 +73,8 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: '#FF8E53',
+    // backgroundColor: '#FF8E53',
+    color: '#FE2D85',
   },
   form: { 
     width: '100%', // Fix IE 11 issue. target for form imput stylization
@@ -131,9 +132,9 @@ export default function SignUp(props) {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        <DirectionsBoatIcon className={classes.avatar}>
           {/* <DirectionsBoatIcon /> */}
-        </Avatar>
+        </DirectionsBoatIcon>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
