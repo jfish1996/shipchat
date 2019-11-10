@@ -118,11 +118,22 @@ const useStyles = makeStyles(theme => ({
     borderBottom: ["none", '!important'],
     
   },
-},
+  },
 
   marginLeft: {
     marginLeft: "20%",
-  }
+  },
+
+  user: {
+    marginTop: "auto",
+		marginBottom: "auto",
+		marginLeft: "10px",
+		borderRadius: "25px",
+		backgroundColor: "#78e08f",
+		padding: "8px",
+		position: "relative",
+
+  },
 
 
 
@@ -225,7 +236,7 @@ export default function Dashboard(props) {
                   //map over each chat
                <div className={classes.flex} key={i}>
                  {/* display who its from */}
-                   <Chip label={chat.user} variant="outlined" />
+                   <Chip label={chat.user} variant="outlined" className={classes.user}/>
                    {/* Display the message */}
                     <Typography variant='body1' className={classes.chatMessage} gutterBottom>{chat.message}</Typography>
                </div>
