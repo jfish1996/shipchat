@@ -22,7 +22,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 // import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
-// import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
+import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { palette } from '@material-ui/system';
@@ -62,23 +62,17 @@ function Copyright() {
   );
 }
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      // light: will be calculated from palette.primary.main,
-      main: '#FE6B8B',
-      // dark: will be calculated from palette.primary.main,
-      // contrastText: will be calculated to contrast with palette.primary.main
-    },
-    secondary: {
-      light: '#FE6B8B',
-      main: '#00695c',
-      // dark: will be calculated from palette.secondary.main,
-      contrastText: '#f50057',
-    },
-    // error: will use the default color
+const MyTypography = withStyles({
+  root: {
+    color: '#FF8E53', //#FF8E53
+    fontFamily:'sans-serif',
   },
-});
+  label: {
+    textTransform: 'capitalize',
+    fontFamily:'sans-serif',
+
+  },
+})(Typography);
 
 
 
@@ -131,7 +125,7 @@ const useStyles = makeStyles(theme => ({
 
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    color: '#FF7EB4',
   },
 
   form: {
@@ -163,12 +157,12 @@ export default function LoginForm(props) {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
+          <DirectionsBoatIcon className={classes.avatar}>
             {/* <DirectionsBoatIcon /> */}
-          </Avatar>
-          <Typography component="h1" variant="h5">
+          </DirectionsBoatIcon>
+          <MyTypography component="h1" variant="h5">
             Login
-          </Typography>
+          </MyTypography>
           <form className={classes.form} noValidate>
             <TextField
               variant="outlined"
