@@ -23,7 +23,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-// import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
+import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -132,7 +132,7 @@ export default function SignUp(props) {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          {/* <DirectionsBoatIcon /> */}
+          <DirectionsBoatIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
