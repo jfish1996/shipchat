@@ -6,8 +6,9 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 //
 // import { createMuiTheme } from 'material-ui/styles';
+import Icon from '@material-ui/core/Icon';
 
-
+import { spacing } from '@material-ui/system';
 
 //for card items//
 import Card from '@material-ui/core/Card';
@@ -37,6 +38,7 @@ import axios from 'axios';
 
 import { whileStatement } from "@babel/types";
 import { fontWeight, fontSize } from "@material-ui/system";
+
 
 
 //where we can assign css values
@@ -69,11 +71,26 @@ const useStyles = makeStyles(theme => ({
     borderBottom: "none",
     borderRadius: "15px",
     autoComplete: "true",
-    height: "2em",
-      
+    padding: "3px 0 6px", 
+  },
+  chatMessage: {
+    marginTop: "auto",
+		marginBottom: "auto",
+		marginLeft: "10px",
+		borderRadius: "25px",
+		backgroundColor: "#82ccdd",
+		padding: "8px",
+		position: "relative",
   },
   button: {
-    width: "5%"
+    width: "5%",
+    backgroundColor: "rgba(0,0,0,0.3)",
+    "&:hover": {
+      color: "black",
+      background: "rgba(0,0,0,0.3)"
+    },
+    borderRadius: "15px",
+    
   },
   card: {
     minWidth: 200,
@@ -87,9 +104,7 @@ const useStyles = makeStyles(theme => ({
   flexMessage: {
     display: "flex",
     justifyContent: "flex-end",
-    alignItems: "center",
-    
-   
+    alignItems: "baseline",
   },
   underline: {
   '&:before': {
@@ -103,8 +118,11 @@ const useStyles = makeStyles(theme => ({
     borderBottom: ["none", '!important'],
     
   },
-
 },
+
+  marginLeft: {
+    marginLeft: "20%",
+  }
 
 
 
@@ -209,7 +227,7 @@ export default function Dashboard(props) {
                  {/* display who its from */}
                    <Chip label={chat.user} variant="outlined" />
                    {/* Display the message */}
-                    <Typography variant='body1' gutterBottom>{chat.message}</Typography>
+                    <Typography variant='body1' className={classes.chatMessage} gutterBottom>{chat.message}</Typography>
                </div>
             
             ))
@@ -222,7 +240,6 @@ export default function Dashboard(props) {
         <TextField
           // id="outlined-basic"
           className={ classes.chatBox }
-          l="20px"
           // autoFocus="false"
           // label="Send a message!"
           InputProps={{classes: {underline: classes.underline}}}
@@ -233,7 +250,9 @@ export default function Dashboard(props) {
           value={textValue}
           onChange={ event => changeTextValue(event.target.value)}
         />
-       
+       {/* <Icon classes={{root: classes.iconRoot}}>
+        <img className={classes.imageIcon} href="https://material.io/resources/icons/?search=send?style=baseline"/>
+        </Icon> */}
 
         <Button 
         variant="contained" 
