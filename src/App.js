@@ -25,8 +25,8 @@ export default class App extends Component {
     name:"",
     password:"",
     loggedInUser:"",
-    // url:"http://localhost:3002"
-    url:"https://frozen-scrubland-02613.herokuapp.com"
+    url:"http://localhost:3002"
+    // url:"https://frozen-scrubland-02613.herokuapp.com"
   }
 
   handleChange= event=>{
@@ -48,8 +48,8 @@ export default class App extends Component {
 
   logOut = () =>{
     axios.get(
-      "https://frozen-scrubland-02613.herokuapp.com/auth/logout"
-      // "http://localhost:3002/auth/logout"
+      // "https://frozen-scrubland-02613.herokuapp.com/auth/logout"
+      "http://localhost:3002/auth/logout"
       ,{withCredentials:true}
       ).then((data) => {
         
@@ -65,6 +65,13 @@ export default class App extends Component {
 
       event.preventDefault();
     }
+    if(this.state.name === ""){
+      alert("Must enter a user name!")
+      window.location.reload(true); 
+    }else if(this.state.password === ""){
+      alert("Must enter a password!")
+      window.location.reload(true); 
+    } else {
     axios.post(`${this.state.url}/auth/login`,{name:this.state.name,password:this.state.password},{withCredentials:true}).then(res=>{
       console.log(res.data,res.status)
       this.setState({
@@ -83,9 +90,18 @@ export default class App extends Component {
        window.location.reload(true); 
     })
   }
+}
+
 
   handleSignupFormSubmit = event=>{
     event.preventDefault();
+    if(this.state.name === ""){
+      alert("Must enter a user name!")
+      window.location.reload(true); 
+    }else if(this.state.password === ""){
+      alert("Must enter a password!")
+      window.location.reload(true); 
+    } else {
     axios.post(`${this.state.url}/auth/signup`,{name:this.state.name,password:this.state.password},{withCredentials:true}).then(res=>{
       console.log(res.data,res.status)
       this.handleLoginFormSubmit();
@@ -93,6 +109,7 @@ export default class App extends Component {
       console.log(err.response);
     })
   }
+}
   //JOE ADDS END---------------------------
 
 
