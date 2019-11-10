@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 //
-import { createMuiTheme } from 'material-ui/styles';
+// import { createMuiTheme } from 'material-ui/styles';
 
 
 
@@ -48,7 +48,8 @@ const useStyles = makeStyles(theme => ({
   },
   flex: {
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+    marginTop: '1em',
   },
   topicsWindow: {
     width: "30%",
@@ -68,6 +69,7 @@ const useStyles = makeStyles(theme => ({
     borderBottom: "none",
     borderRadius: "15px",
     autoComplete: "true",
+    height: "2em",
       
   },
   button: {
