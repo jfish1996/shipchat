@@ -123,8 +123,12 @@ export default class App extends Component {
        <Route exact path="/signup" render={()=><SignUpForm name={this.state.name} password={this.state.password}handleChange={this.handleChange} handleSignupFormSubmit={this.handleSignupFormSubmit}/>}/>
        <Route exact path="/dash" render= { ()=> { 
        return(   
-      <Store user={this.state.loggedInUser.name}>
-      <DashBoard user={this.state.loggedInUser.name} logout={this.logOut}/>
+      <Store 
+      // user={this.state.loggedInUser.name}
+      >
+      <DashBoard 
+      // user={this.state.loggedInUser.name} 
+      logout={this.logOut}/>
       </Store>)
        }}/> 
        
