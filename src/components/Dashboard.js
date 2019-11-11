@@ -7,8 +7,9 @@ import Typography from "@material-ui/core/Typography";
 //
 // import { createMuiTheme } from 'material-ui/styles';
 import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
-import { spacing } from '@material-ui/system';
 
 //for card items//
 import Card from '@material-ui/core/Card';
@@ -71,7 +72,10 @@ const useStyles = makeStyles(theme => ({
     borderBottom: "none",
     borderRadius: "15px",
     autoComplete: "true",
-    padding: "3px 0 6px", 
+    padding: "6px 16px",
+    paddingLeft:'1em',
+    
+   
   },
   chatMessage: {
     marginTop: "auto",
@@ -84,6 +88,8 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     width: "5%",
+    fontFamily: "Open Sans, sans-serif",
+    fontWeight: "bold",
     backgroundColor: "rgba(0,0,0,0.3)",
     "&:hover": {
       color: "black",
@@ -95,6 +101,9 @@ const useStyles = makeStyles(theme => ({
   card: {
     minWidth: 200,
   },
+  textValue: {
+    color: "white",
+  },
   colorPrimary: {
     color: "white",
     fontFamily: "Poiret One",
@@ -105,6 +114,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "baseline",
+    
   },
   underline: {
   '&:before': {
@@ -118,10 +128,11 @@ const useStyles = makeStyles(theme => ({
     borderBottom: ["none", '!important'],
     
   },
+  color: "white",
+  fontFamily: "Open Sans, sans-serif",
   },
-
-  marginLeft: {
-    marginLeft: "20%",
+  welcUser: {
+    textAlign: "left",
   },
 
   user: {
@@ -134,7 +145,21 @@ const useStyles = makeStyles(theme => ({
 		position: "relative",
 
   },
+  activeTopic: {
+    fontFamily: "Open Sans, sans-serif",
+    fontVariant: "small-caps",
+    fontWeight: "bold",
+  },
+  iconButton: {
+    width: "48px",
+    height: "48px",
+    alignSelf: "flex-end",
+    
+  },
 
+  channelHeader: {
+    fontWeight: "bold",
+  }
 
 
 }));
@@ -185,12 +210,12 @@ export default function Dashboard(props) {
       {(activeTopic == "Users")? console.log("yay"): console.log("nope")}
         {/* Component to break 1 */}
       <Paper className={classes.root}>
-      <Typography className={classes.colorPrimary}>Welcome {props.user}</Typography>
+      <Typography className={`${classes.colorPrimary} ${classes.welcUser}`}>Welcome {props.user}</Typography>
         <Typography variant="h4" component="h4" className={classes.colorPrimary}>
           Sea Cruiser
         </Typography>
         
-        <Typography variant="h5" component="h5">
+        <Typography variant="h5" component="h5" className={classes.activeTopic}>
           {activeTopic}
         </Typography>
         {/* Componenet to break 2 */}
@@ -198,7 +223,7 @@ export default function Dashboard(props) {
           <div className={classes.topicsWindow}>
             {/* List Items */}
             <List>
-              <div>Channels</div>
+              <div className={classes.channelHeader}>Channels</div>
               {topics.map(topic => (
                 // on click of a list item ie a topic grab the inner text of this list item and set it as the active topic 
                 <ListItem onClick={event => handleSelecTopic(event.target.innerText) } key={topic} button>
@@ -250,7 +275,8 @@ export default function Dashboard(props) {
         
         <TextField
           // id="outlined-basic"
-          className={ classes.chatBox }
+          className={classes.chatBox}
+          
           // autoFocus="false"
           // label="Send a message!"
           InputProps={{classes: {underline: classes.underline}}}
@@ -261,11 +287,20 @@ export default function Dashboard(props) {
           value={textValue}
           onChange={ event => changeTextValue(event.target.value)}
         />
-       {/* <Icon classes={{root: classes.iconRoot}}>
-        <img className={classes.imageIcon} href="https://material.io/resources/icons/?search=send?style=baseline"/>
-        </Icon> */}
+       <IconButton aria-label="delete" className={classes.iconButton}
+        onClick={() => {
+          //this is where we are sending out data, this is how the object will look
+            sendChatAction({user, message: textValue, topic: activeTopic})
+            changeTextValue('');
+        }
+            }
+            >
+            <SvgIcon>
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>          
+        </SvgIcon>
+        </IconButton>
 
-        <Button 
+        {/* <Button 
         variant="contained" 
         color="primary" 
         className={classes.button}
@@ -277,7 +312,7 @@ export default function Dashboard(props) {
             }
         >
                 Send
-        </Button>
+        </Button> */}
 
             </div>
 
