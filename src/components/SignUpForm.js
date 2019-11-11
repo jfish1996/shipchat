@@ -50,6 +50,18 @@ function Copyright() {
   );
 }
 
+const MyTypography = withStyles({
+  root: {
+    color: 'white', //#FF8E53
+    fontFamily:'sans-serif',
+  },
+  label: {
+    textTransform: 'capitalize',
+    fontFamily:'sans-serif',
+
+  },
+})(Typography);
+
 
 
 
@@ -73,7 +85,8 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: '#FF8E53',
+    // backgroundColor: '#FF8E53',
+    color: '#FE2D85',
   },
   form: { 
     width: '100%', // Fix IE 11 issue. target for form imput stylization
@@ -131,12 +144,12 @@ export default function SignUp(props) {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <DirectionsBoatIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
+        <DirectionsBoatIcon className={classes.avatar}>
+          {/* <DirectionsBoatIcon /> */}
+        </DirectionsBoatIcon>
+        <MyTypography component="h1" variant="h5">
           Sign up
-        </Typography>
+        </MyTypography>
         <form className={classes.form} noValidate>
          
             <Grid item xs={12}>

@@ -5,7 +5,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 //
-
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import SvgIcon from '@material-ui/core/SvgIcon';
+import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
 
 //for card items//
 import Card from '@material-ui/core/Card';
@@ -57,7 +60,8 @@ const useStyles = makeStyles(theme => ({
   },
   flex: {
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+    marginTop: '1em',
   },
   topicsWindow: {
     width: "30%",
@@ -74,26 +78,95 @@ const useStyles = makeStyles(theme => ({
   chatBox: {
     width: "60%",
     backgroundColor: "rgba(0,0,0,0.3)",
-    border: "none",
+    borderBottom: "none",
     borderRadius: "15px",
     autoComplete: "true",
+    padding: "6px 16px",
+    paddingLeft:'1em',
+  },
+  chatMessage: {
+    marginTop: "auto",
+		marginBottom: "auto",
+		marginLeft: "10px",
+		borderRadius: "25px",
+		backgroundColor: "#82ccdd",
+		padding: "8px",
+		position: "relative",
   },
   button: {
-    width: "5%"
+    width: "5%",
+    fontFamily: "Open Sans, sans-serif",
+    fontWeight: "bold",
+    backgroundColor: "rgba(0,0,0,0.3)",
+    "&:hover": {
+      color: "black",
+      background: "rgba(0,0,0,0.3)"
+    },
+    borderRadius: "15px",
   },
   card: {
     minWidth: 200,
+  },
+  textValue: {
+    color: "white",
   },
   colorPrimary: {
     color: "white",
     fontFamily: "Poiret One",
     fontWeight: "bold",
-   
   },
   flexMessage: {
     display: "flex",
     justifyContent: "flex-end",
+    alignItems: "baseline",
+  },
+  underline: {
+  '&:before': {
+    borderBottom:"none",
+  },
+  '&:after': {
+    borderBottom:"none",
+  },
+  '&:hover:before': {
+    borderBottom: ["none", '!important'], 
+  },
+  color: "white",
+  fontFamily: "Open Sans, sans-serif",
+  },
+  welcUser: {
+    textAlign: "left",
+  },
+  user: {
+    marginTop: "auto",
+		marginBottom: "auto",
+		marginLeft: "10px",
+		borderRadius: "25px",
+		backgroundColor: "#78e08f",
+		padding: "8px",
+		position: "relative",
+  },
+  activeTopic: {
+    fontFamily: "Open Sans, sans-serif",
+    fontVariant: "small-caps",
+    fontWeight: "bold",
+  },
+  iconButton: {
+    width: "48px",
+    height: "48px",
+    alignSelf: "flex-end",
+  },
+  channelHeader: {
+    fontWeight: "bold",
+  },
+  welcLogout: {
+    display: "flex",
+    justifyContent: "space-between",
     alignItems: "center",
+  },
+  avatar: {
+    color: '#FE2D85',
+    paddingLeft:'0.43em',
+
   },
 
 }));
@@ -136,8 +209,8 @@ export default function Dashboard(props) {
   }
   const findAllUsers = () =>{
     axios.get(
-      "https://frozen-scrubland-02613.herokuapp.com/chat/users"
-      // "http://localhost:3002/chat/users/"
+      // "https://frozen-scrubland-02613.herokuapp.com/chat/users"
+      "http://localhost:3002/chat/users/"
       ).then(function(data){
       changeallUsers(data.data)
       console.log(allUsers)
@@ -147,8 +220,8 @@ export default function Dashboard(props) {
 
   const logOut = () =>{
     axios.get(
-      "https://frozen-scrubland-02613.herokuapp.com/auth/logout"
-      // "http://localhost:3002/auth/logout"
+      // "https://frozen-scrubland-02613.herokuapp.com/auth/logout"
+      "http://localhost:3002/auth/logout"
       ).then(function(data){
       console.log(data)
       history.push("/")
@@ -159,7 +232,6 @@ export default function Dashboard(props) {
   useEffect(() =>{
 
     findAllUsers();
-
   },[]);
 
   // const refreshOnce = () => {
@@ -186,16 +258,21 @@ export default function Dashboard(props) {
 
         {/* Component to break 1 */}
       <Paper className={classes.root}>
-      <Button onClick={() => {
+        <div className={classes.welcLogout}>
+      <Typography className={`${classes.colorPrimary} ${classes.welcUser}`}>Welcome {props.user}</Typography>
+      <Button  onClick={() => {
         logOut()
       }}>Logout
       </Button>
-      <Typography className={classes.colorPrimary}>Welcome {props.user}</Typography>
+      </div>
         <Typography variant="h4" component="h4" className={classes.colorPrimary}>
           Sea Cruiser
+        <DirectionsBoatIcon className={classes.avatar}>
+          {/* <DirectionsBoatIcon /> */}
+        </DirectionsBoatIcon>
         </Typography>
       
-        <Typography variant="h5" component="h5">
+        <Typography variant="h5" component="h5" className={classes.activeTopic}>
           {activeTopic}
         </Typography>
         {/* Componenet to break 2 */}
@@ -203,7 +280,7 @@ export default function Dashboard(props) {
           <div className={classes.topicsWindow}>
             {/* List Items */}
             <List>
-              <div>Channels</div>
+            <div className={classes.channelHeader}>Channels</div>
               {topics.map(topic => (
                 // on click of a list item ie a topic grab the inner text of this list item and set it as the active topic 
                 <ListItem onClick={event => handleSelecTopic(event.target.innerText) } key={topic} button>
@@ -248,9 +325,9 @@ export default function Dashboard(props) {
                   //map over each chat
                <div className={classes.flex} key={i}>
                  {/* display who its from */}
-                   <Chip label={chat.user} variant="outlined" />
+                 <Chip label={chat.user} variant="outlined" className={classes.user}/>
                    {/* Display the message */}
-                    <Typography variant='body1' gutterBottom>{chat.message}</Typography>
+                   <Typography variant='body1' className={classes.chatMessage} gutterBottom>{chat.message}</Typography>
                </div>
             
             ))
@@ -263,17 +340,31 @@ export default function Dashboard(props) {
         <TextField
           // id="outlined-basic"
           className={classes.chatBox}
+          
           // autoFocus="false"
-          label="Send a message!"
+          // label="Send a message!"
+          InputProps={{classes: {underline: classes.underline}}}
+          placeholder="Send a message!"
           margin="normal"
-          // disableUnderline="true"
-          // variant="outlined"
+          variant="standard"
+          
           value={textValue}
           onChange={ event => changeTextValue(event.target.value)}
         />
-       
+       <IconButton aria-label="delete" className={classes.iconButton}
+        onClick={() => {
+          //this is where we are sending out data, this is how the object will look
+            sendChatAction({user, message: textValue, topic: activeTopic})
+            changeTextValue('');
+        }
+            }
+            >
+            <SvgIcon>
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>          
+        </SvgIcon>
+        </IconButton>
 
-        <Button 
+        {/* <Button 
         variant="contained" 
         color="primary" 
         className={classes.button}
@@ -285,7 +376,7 @@ export default function Dashboard(props) {
             }
         >
                 Send
-        </Button>
+        </Button> */}
 
             </div>
 

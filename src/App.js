@@ -3,6 +3,7 @@ import axios from "axios";
 import './App.css';
 import DashBoard from './components/Dashboard';
 import Store from './components/Store';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -25,8 +26,8 @@ export default class App extends Component {
     name:"",
     password:"",
     loggedInUser:"",
-    // url:"http://localhost:3002"
-    url:"https://frozen-scrubland-02613.herokuapp.com"
+    url:"http://localhost:3002"
+    // url:"https://frozen-scrubland-02613.herokuapp.com"
   }
 
   handleChange= event=>{
@@ -55,7 +56,7 @@ export default class App extends Component {
         
       console.log(data)
       this.setState({loggedInUser:false})
-      // window.location.href="/"
+      window.location.href="/"
     })
 
   }
