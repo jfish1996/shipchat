@@ -106,8 +106,8 @@ export default function Store(props) {
 
     if(!socket) {
         socket = io(
-            'http://localhost:3002'
-            // "https://frozen-scrubland-02613.herokuapp.com/"
+            // 'http://localhost:3002'
+            "https://frozen-scrubland-02613.herokuapp.com/"
             )
         socket.on('chat message', function(msg){
             console.log("Message test ", msg)
@@ -116,8 +116,8 @@ export default function Store(props) {
         socket.on('chatroom enter', function(chatroom){
             console.log("chatroom enter", chatroom)
             axios.get(
-                // `https://frozen-scrubland-02613.herokuapp.com/chat/allchannels/${chatroom}`
-                `http://localhost:3002/chat/allchannels/${chatroom}`
+                `https://frozen-scrubland-02613.herokuapp.com/chat/allchannels/${chatroom}`
+                // `http://localhost:3002/chat/allchannels/${chatroom}`
             )
             .then(function(results){
                 console.log(results)
