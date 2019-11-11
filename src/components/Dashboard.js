@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
 
 //for card items//
 import Card from '@material-ui/core/Card';
@@ -162,6 +163,11 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  avatar: {
+    color: '#FE2D85',
+    paddingLeft:'0.43em',
+
+  },
 
 }));
 
@@ -262,6 +268,9 @@ export default function Dashboard(props) {
       </div>
         <Typography variant="h4" component="h4" className={classes.colorPrimary}>
           Sea Cruiser
+        <DirectionsBoatIcon className={classes.avatar}>
+          {/* <DirectionsBoatIcon /> */}
+        </DirectionsBoatIcon>
         </Typography>
       
         <Typography variant="h5" component="h5" className={classes.activeTopic}>
