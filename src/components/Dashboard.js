@@ -268,7 +268,7 @@ export default function Dashboard(props) {
       </Button>
       </div>
         <Typography variant="h4" component="h4" className={classes.colorPrimary}>
-          Sea Cruiser
+          SeaCruiser
         <DirectionsBoatIcon className={classes.avatar}>
           {/* <DirectionsBoatIcon /> */}
         </DirectionsBoatIcon>
