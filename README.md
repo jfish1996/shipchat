@@ -34,7 +34,6 @@ Currently, an app for this market does not exist.
        * Material UI
        * Bootstrap React
     * Socket IO
-    * Libraries
     * React.js
         * React Router
         * Hooks (w/ functional based components)
