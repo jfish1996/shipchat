@@ -154,6 +154,7 @@ const useStyles = makeStyles(theme => ({
     width: "48px",
     height: "48px",
     alignSelf: "flex-end",
+    marginBottom: ".25em",
   },
   channelHeader: {
     fontWeight: "bold",
