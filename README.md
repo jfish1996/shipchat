@@ -46,10 +46,10 @@ Currently, an app for this market does not exist.
 
 ## Credits
 Julia Graves - UX / Designer
-    http://www.gravehaus.com/
+   * http://www.gravehaus.com/
 
 John Traut - Back End Dev
-    https://github.com/jfish1996
+   * https://github.com/jfish1996
 
 George Wyscaver - UI / Designer
-    http://www.gwyscaver.com/
+   * http://www.gwyscaver.com/
