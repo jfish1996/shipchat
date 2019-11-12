@@ -13,7 +13,7 @@ Currently, an app for this market does not exist.
 
 [Video Playback](https://youtu.be/2AwJHQkH19U)
 
-![Screenshot](assets/images/seacruiser.jpg)
+![Screenshot](public/assets/images/seacruiser.jpg)
 
 [Sea Cruiser Chat App](http://boiling-forest-49975.herokuapp.com//)
 
